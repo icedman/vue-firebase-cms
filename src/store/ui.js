@@ -11,8 +11,8 @@ export default {
   },
 
   actions: {
-    showFullPage({ commit }) {
-      commit('SHOW_SIDEBAR', true);
+    toggleFullPage({ commit }) {
+      commit('SHOW_FULLPAGE', !this.state.ui.fullpage);
     },
 
     toggleSidebar({ commit }) {

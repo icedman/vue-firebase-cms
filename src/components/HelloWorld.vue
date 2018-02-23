@@ -79,7 +79,9 @@
           awesome-vue
         </a>
 
+        <br><br>
         <button class="button is-primary" @click="toggleSidebar()">Toggle Sidebar</button>
+        <button class="button is-primary" @click="toggleFullPage()">Toggle FullPage</button>
       </li>
     </ul>
   </div>
@@ -98,9 +100,9 @@ export default {
 
   methods: Object.assign(
     {
-
+      //
     },
-    mapActions('ui', ['toggleSidebar']),
+    mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
   ),
 };
 </script>
