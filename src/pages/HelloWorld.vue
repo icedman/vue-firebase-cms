@@ -88,7 +88,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import Menu from '../menus';
 
 export default {
   name: 'HelloWorld',
@@ -98,12 +99,24 @@ export default {
     };
   },
 
+  computed: Object.assign(
+    {
+    },
+    mapGetters('ui', ['fullpage']),
+  ),
+
   methods: Object.assign(
     {
-      //
+      toggleFullPage2() {
+        this.$store.commit('ui/SHOW_FULLPAGE', !this.fullpage);
+      },
     },
     mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
   ),
+
+  mounted() {
+    this.$store.commit('ui/SET_MENU', Menu);
+  },
 };
 </script>
 
@@ -122,5 +135,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.hello {
+  margin: 20px;
 }
 </style>
