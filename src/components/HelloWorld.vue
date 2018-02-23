@@ -78,12 +78,16 @@
         >
           awesome-vue
         </a>
+
+        <button class="button is-primary" @click="toggleSidebar()">Toggle Sidebar</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'HelloWorld',
   data() {
@@ -91,6 +95,13 @@ export default {
       msg: 'Welcome to Your Vue.js App',
     };
   },
+
+  methods: Object.assign(
+    {
+
+    },
+    mapActions('ui', ['toggleSidebar']),
+  ),
 };
 </script>
 
