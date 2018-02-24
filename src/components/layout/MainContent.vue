@@ -25,12 +25,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~bulma/sass/utilities/mixins.sass';
+
 .app-main {
   height: 100%;
   padding-top: 50px;
   margin-left: 200px;
   transform: translate3d(0, 0, 0);
   transition: margin 200ms;
+
+  @include mobile() {
+    margin-left: 0;
+  }
+
   z-index: 0;
 }
 

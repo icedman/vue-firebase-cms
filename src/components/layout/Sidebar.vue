@@ -30,11 +30,13 @@
 
       </ul>
     </aside>
+    <div class="sidebar-bg " :class="{ 'is-hidden': !this.show }" @click="toggleSidebar()"></div>
   </div>
 </template>
 
 <script>
 import Expanding from 'vue-bulma-expanding';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -68,7 +70,13 @@ export default {
     },
   },
 
-  methods: {
+  computed: {
+    show() {
+      return this.$store.state.ui.sidebar;
+    },
+  },
+
+  methods: Object.assign({
     expandMenu(item) {
       // item.meta.expanded = true;
       const menu = [...this.$store.state.ui.menu];
@@ -130,6 +138,8 @@ export default {
     },
     */
   },
+  mapActions('ui', ['toggleSidebar']),
+  ),
 };
 </script>
 
@@ -161,6 +171,21 @@ export default {
 
 .app-sidebar .subitems {
   padding-left: 8px;
+}
+
+.sidebar-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+@media (min-width:768px) {
+  .sidebar-bg {
+    display: none;
+  }
 }
 </style>
 

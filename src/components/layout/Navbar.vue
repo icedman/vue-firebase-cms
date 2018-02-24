@@ -6,7 +6,7 @@
       VueFire CMS
       </div>
 
-      <button class="button navbar-burger" v-on:click="toggleSidebar">
+      <button class="button navbar-burger is-dark" v-on:click="toggleSidebar">
         <span></span>
         <span></span>
         <span></span>
@@ -58,5 +58,11 @@ export default {
   .navbar-item i {
     padding-right:4px;
   }
+}
+
+.button.navbar-burger {
+  border: 0px;
+  border-radius: 0px;
+  background-color: transparent;
 }
 </style>
