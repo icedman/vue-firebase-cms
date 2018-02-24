@@ -23,7 +23,7 @@
       </div>
 
       <div class="navbar-end">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item" @click="logout()">
           <i class="fa fa-sign-out"></i>
           Logout
         </a>
@@ -37,8 +37,16 @@
 import { mapActions } from 'vuex';
 
 export default {
-  methods: Object.assign({},
-    mapActions('ui', ['toggleSidebar']),
+  methods: Object.assign({
+    logout() {
+      this.$firebase.auth().signOut();
+      this.$store.commit('ui/SHOW_FULLPAGE', true);
+      this.$store.commit('ui/SHOW_LEVELBAR', false);
+      this.$store.commit('user/SET_USER', { displayName: '', email: '' });
+      this.$router.push('/login');
+    },
+  },
+  mapActions('ui', ['toggleSidebar']),
   ),
 };
 </script>

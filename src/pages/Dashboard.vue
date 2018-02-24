@@ -1,6 +1,7 @@
 <template>
   <div class="page">
-    {{msg}}
+    <h2>{{msg}}</h2>
+    Welcome, {{this.$store.state.user.displayName}}.
   </div>
 </template>
 
@@ -29,6 +30,8 @@ export default {
 
   mounted() {
     this.$store.commit('ui/SET_MENU', Menu);
+    this.$store.commit('ui/SHOW_FULLPAGE', false);
+    this.$store.commit('ui/SHOW_LEVELBAR', true);
   },
 };
 </script>

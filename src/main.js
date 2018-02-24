@@ -19,10 +19,11 @@ Vue.config.productionTip = false;
 firebase.initializeApp(config.firebase);
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    store.commit('SET_USER', user);
+    store.commit('user/SET_USER', user);
+    router.push('/');
   } else {
-    store.commit('SET_USER', { displayName: '', email: '' });
-    // router.push('/login')
+    store.commit('user/SET_USER', { displayName: '', email: '' });
+    router.push('/login');
   }
 });
 

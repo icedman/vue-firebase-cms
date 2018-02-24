@@ -6,17 +6,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Levelbar from './Levelbar';
 
 export default {
-  computed: {
+  computed: Object.assign({
     fullPageClass() {
-      return this.$store.state.ui.fullpage ? 'full-page' : null;
+      return this.fullpage ? 'full-page' : null;
     },
     hiddenSidebarStyle() {
       return !this.$store.state.ui.sidebar ? { 'margin-left': 0 } : null;
     },
   },
+  mapGetters('ui', ['fullpage']),
+  ),
 
   components: {
     Levelbar,

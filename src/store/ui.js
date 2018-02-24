@@ -16,6 +16,9 @@ export default {
     toggleFullPage({ commit }) {
       commit('SHOW_FULLPAGE', (this.state.ui.sidebar || this.state.ui.navbar));
     },
+    setFullPage({ commit }) {
+      commit('SHOW_FULLPAGE', true);
+    },
   },
 
   getters: {
