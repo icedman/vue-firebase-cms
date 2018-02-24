@@ -15,6 +15,7 @@
     "bulma": "^0.6.2",
     "font-awesome": "^4.7.0",
     "vue": "^2.5.2",
+    "vue-bulma-breadcrumb": "^1.0.1",
     "vue-bulma-expanding": "^0.0.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

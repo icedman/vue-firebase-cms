@@ -19,12 +19,12 @@ var Template = [
 export default [
   {
     name: 'Posts',
-    path: '',
+    path: '/posts',
     meta: { icon: 'fa-edit', expanded: false },
   },
   {
     name: 'Pages',
-    path: '',
+    path: '/pages',
     meta: { icon: 'fa-file', expanded: false },
   },
   {

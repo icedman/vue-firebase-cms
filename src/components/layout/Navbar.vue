@@ -1,20 +1,51 @@
 <template>
-  <section class="hero app-navbar" v-if="this.$store.state.ui.navbar">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div>NAV {{this.$store.state.ui.navbar}}</div>
-    </nav>
-  </section>
+<section class="hero app-navbar is-dark " v-if="this.$store.state.ui.navbar">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand nav" style="float:left">
+      <div class="navbar-item">
+      VueFire CMS
+      </div>
+
+      <button class="button navbar-burger" v-on:click="toggleSidebar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <router-link class="navbar-item" to="/">
+        <i class="fa fa-empire"></i>
+        Dashboard
+      </router-link>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">Website</a>
+      </div>
+
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">
+          <i class="fa fa-sign-out"></i>
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+</section>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
+  methods: Object.assign({},
+    mapActions('ui', ['toggleSidebar']),
+  ),
 };
 </script>
 
 <style lang="scss" scoped>
 .app-navbar {
 
-  background-color: #f8f8f8;
   position: fixed;
   min-width: 100%;
   z-index: 3;
@@ -22,6 +53,10 @@ export default {
 
   .container {
     margin: auto 10px;
+  }
+
+  .navbar-item i {
+    padding-right:4px;
   }
 }
 </style>
