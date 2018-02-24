@@ -1,10 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
-import Dashboard from '@/pages/Dashboard';
-import Posts from '@/pages/Posts';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
+import { Dashboard, Posts, Register, Login } from '@/pages';
 
 Vue.use(Router);
 
@@ -31,4 +27,5 @@ export default new Router({
       component: Posts,
     },
   ],
+  mode: 'history', // removes '#' from url
 });
