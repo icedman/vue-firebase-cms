@@ -16,25 +16,21 @@ export default {
   },
 
   computed: Object.assign(
-    {
-    },
+    {},
     mapGetters('ui', ['fullpage']),
   ),
-
   methods: Object.assign(
-    {
-    },
+    {},
     mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
   ),
-
-  mounted() {
+  created() {
     this.$store.commit('ui/SET_MENU', Menu);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.page {
-  margin: 20px;
-}
+  .page {
+    margin: 20px;
+  }
 </style>
