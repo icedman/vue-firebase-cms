@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Levelbar from './Levelbar.vue';
+import Levelbar from './Levelbar';
 
 export default {
   computed: {
@@ -19,7 +19,7 @@ export default {
   },
 
   components: {
-    Levelbar
+    Levelbar,
   },
 };
 </script>
