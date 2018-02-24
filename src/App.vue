@@ -74,4 +74,13 @@ $link-focus-border: $primary;
     padding-right:8px;
   }
 }
+
+
+.menu-list a.router-link-exact-active,
+.menu-list a.router-link-exact-active:hover {
+  color: $primary-invert;
+  background-color: $primary;
+  border-radius: 0px;
+}
+
 </style>

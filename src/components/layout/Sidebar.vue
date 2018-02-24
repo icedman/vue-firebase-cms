@@ -16,7 +16,7 @@
           :expanded="isExpanded(menuItem)">
         </menu-item-router-link>
 
-        <expanding v-if="menuItem.children && menuItem.children.length">
+        <expanding v-if="menuItem.children && menuItem.children.length" class="subitems">
           <ul v-show="isExpanded(menuItem)">
             <li v-for="(subItem, subItemIndex) in menuItem.children"
               :key="subItemIndex">
@@ -159,10 +159,8 @@ export default {
   left: -200px;
 }
 
-.menu-list a.router-link-exact-active,
-.menu-list a.router-link-exact-active:hover {
-  color: $primary-invert;
-  background-color: rgb(255,120,40);
+.app-sidebar .subitems {
+  padding-left: 8px;
 }
 </style>
 
@@ -193,4 +191,5 @@ export default {
     }
   }
 }
+
 </style>
