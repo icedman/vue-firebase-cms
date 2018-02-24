@@ -57,7 +57,7 @@ export default {
       props: ['item', 'index', 'expanded'],
       template: `
       <li v-if="item.path!=''">
-        <router-link :to="item.path" :aria-expanded="expanded" @click="$parent.toggle(index, item)">
+        <router-link :exact="true" :to="item.path" :aria-expanded="expanded" @click="$parent.toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span> {{item.name}}
           <span class="icon is-small is-angle" v-if="item.children && item.children.length">
             <i class="fa fa-angle-down"></i>
@@ -134,6 +134,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~bulma/sass/utilities/_all';
+
 .app-sidebar {
   height: 100%;
   position: fixed;
@@ -157,6 +159,11 @@ export default {
   left: -200px;
 }
 
+.menu-list a.router-link-exact-active,
+.menu-list a.router-link-exact-active:hover {
+  color: $primary-invert;
+  background-color: rgb(255,120,40);
+}
 </style>
 
 <style lang="scss">
