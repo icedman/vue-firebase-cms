@@ -11,10 +11,10 @@ export default {
 
   actions: {
     toggleSidebar({ commit }) {
-      commit('SHOW_SIDEBAR', !this.state.ui.sidebar);
+      commit('SHOW_SIDEBAR', !this.state.sidebar);
     },
     toggleFullPage({ commit }) {
-      commit('SHOW_FULLPAGE', (this.state.ui.sidebar || this.state.ui.navbar));
+      commit('SHOW_FULLPAGE', (this.state.sidebar || this.state.navbar));
     },
   },
 
