@@ -32,12 +32,14 @@
               </p>
               <label class="label">Confirm Password</label>
               <p class="control">
-                <input class="input" type="password" v-model="password_confirm" placeholder="●●●●●●●">
+                <input class="input" type="password" v-model="password_confirm"
+                  placeholder="●●●●●●●">
               </p>
               <hr>
               <p class="control">
                 <button class="button is-primary" @click="register()">Register</button>
-                <router-link to="/" :exact="true" :aria-expanded="false" class="button is-secondary">
+                <router-link to="/" :exact="true" :aria-expanded="false"
+                  class="button is-secondary">
                   Cancel
                 </router-link>
               </p>
