@@ -3,22 +3,18 @@ export default {
   namespaced: true,
 
   state: {
-    user: {
-      displayName: '',
-      email: '',
-    },
+    displayName: '',
+    email: '',
   },
 
-  actions: {
-  },
+  actions: {},
 
-  getters: {
-  },
+  getters: {},
 
   mutations: {
     SET_USER(state, user) {
-      state.user.displayName = user.displayName;
-      state.user.email = user.email;
+      state.displayName = user.displayName;
+      state.email = user.email;
     },
   },
 };

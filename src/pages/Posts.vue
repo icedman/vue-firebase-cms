@@ -8,50 +8,49 @@
     <hr>
     <section>
       <b-table :data="data" :mobile-cards="true">
+        <template slot-scope="props">
+          <b-table-column field="id" label="ID" width="40" numeric>
+            {{ props.row.id }}
+          </b-table-column>
 
-          <template slot-scope="props">
-              <b-table-column field="id" label="ID" width="40" numeric>
-                  {{ props.row.id }}
-              </b-table-column>
+          <b-table-column field="first_name" label="First Name">
+            {{ props.row.first_name }}
+          </b-table-column>
 
-              <b-table-column field="first_name" label="First Name">
-                  {{ props.row.first_name }}
-              </b-table-column>
+          <b-table-column field="last_name" label="Last Name">
+            {{ props.row.last_name }}
+          </b-table-column>
 
-              <b-table-column field="last_name" label="Last Name">
-                  {{ props.row.last_name }}
-              </b-table-column>
+          <b-table-column field="date" label="Date" centered>
+            <span class="tag is-success">
+              {{ convertDate(props.row.date) }}
+            </span>
+          </b-table-column>
 
-              <b-table-column field="date" label="Date" centered>
-                  <span class="tag is-success">
-                      {{ new Date(props.row.date).toLocaleDateString() }}
-                  </span>
-              </b-table-column>
+          <b-table-column label="Gender">
+            <b-icon
+              pack="fas"
+              :icon="setGenderIcon(props.row.gender)">
+            </b-icon>
+            {{ props.row.gender }}
+          </b-table-column>
+        </template>
 
-              <b-table-column label="Gender">
-                  <b-icon pack="fas"
-                      :icon="props.row.gender === 'Male' ? 'mars' : 'venus'">
-                  </b-icon>
-                  {{ props.row.gender }}
-              </b-table-column>
-          </template>
-
-          <template slot="empty">
-              <section class="section">
-                  <div class="content has-text-grey has-text-centered">
-                      <p>
-                          <b-icon
-                              icon="emoticon-sad"
-                              size="is-large">
-                          </b-icon>
-                      </p>
-                      <p>Nothing here.</p>
-                  </div>
-              </section>
-          </template>
+        <template slot="empty">
+          <section class="section">
+            <div class="content has-text-grey has-text-centered">
+              <p>
+                <b-icon
+                  icon="emoticon-sad"
+                  size="is-large">
+                </b-icon>
+              </p>
+              <p>Nothing here.</p>
+            </div>
+          </section>
+        </template>
       </b-table>
-  </section>
-
+    </section>
   </div>
 </template>
 
@@ -80,7 +79,14 @@ export default {
   ),
 
   methods: Object.assign(
-    {},
+    {
+      convertDate(date) {
+        return new Date(date).toLocaleDateString();
+      },
+      setGenderIcon(gender) {
+        return gender === 'Male' ? 'mars' : 'venus';
+      },
+    },
     mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
   ),
 
