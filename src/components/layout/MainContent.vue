@@ -1,10 +1,13 @@
 <template>
   <section class="app-main" :class="fullPageClass" :style="hiddenSidebarStyle">
+    <levelbar v-if="this.$store.state.ui.levelbar"></levelbar>
     <router-view></router-view>
   </section>
 </template>
 
 <script>
+import Levelbar from './Levelbar.vue';
+
 export default {
   computed: {
     fullPageClass() {
@@ -13,6 +16,10 @@ export default {
     hiddenSidebarStyle() {
       return !this.$store.state.ui.sidebar ? { 'margin-left': 0 } : null;
     },
+  },
+
+  components: {
+    Levelbar
   },
 };
 </script>
