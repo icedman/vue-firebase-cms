@@ -1,18 +1,13 @@
 <template>
   <div class="page">
 
-    <button class="button is-secondary"><i class="fa fa-plus"></i> Add New  Post</button>
+    <button class="button is-secondary">
+        <i class="fa fa-plus"></i>
+        Add New  Post
+    </button>
     <hr>
     <section>
-      <b-table
-          :data="isEmpty ? [] : data"
-          :bordered="isBordered"
-          :striped="isStriped"
-          :narrowed="isNarrowed"
-          :hoverable="isHoverable"
-          :loading="isLoading"
-          :focusable="isFocusable"
-          :mobile-cards="hasMobileCards">
+      <b-table :data="data" :mobile-cards="true">
 
           <template slot-scope="props">
               <b-table-column field="id" label="ID" width="40" numeric>
@@ -62,7 +57,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Menu from '../menus';
+import Menu from '@/menus';
 
 export default {
   data() {
@@ -76,26 +71,16 @@ export default {
 
     return {
       data,
-      isEmpty: false,
-      isBordered: false,
-      isStriped: false,
-      isNarrowed: false,
-      isHoverable: false,
-      isFocusable: false,
-      isLoading: false,
-      hasMobileCards: true,
     };
   },
 
   computed: Object.assign(
-    {
-    },
+    {},
     mapGetters('ui', ['fullpage']),
   ),
 
   methods: Object.assign(
-    {
-    },
+    {},
     mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
   ),
 
