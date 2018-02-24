@@ -9,19 +9,13 @@
 </template>
 
 <script>
-import Navbar from './components/layout/Navbar';
-import Sidebar from './components/layout/Sidebar';
-import MainContent from './components/layout/MainContent';
+import { Navbar, Sidebar, MainContent } from '@/layout';
 
 export default {
-  name: 'App',
-  components: {
-    navbar: Navbar,
-    sidebar: Sidebar,
-    mainContent: MainContent,
-  },
+  components: { Navbar, Sidebar, MainContent },
 };
 </script>
+
 
 <style lang="scss">
 html {width: 100%; height: 100%}

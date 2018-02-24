@@ -1,6 +1,9 @@
 <template>
-  <section class="app-main" :class="fullPageClass" :style="hiddenSidebarStyle">
-    <levelbar v-if="this.$store.state.ui.levelbar"></levelbar>
+  <section
+    class="app-main"
+    :class="fullPageClass"
+    :style="hiddenSidebarStyle">
+    <levelbar v-if="showLevelBar" />
     <router-view></router-view>
   </section>
 </template>
@@ -16,6 +19,9 @@ export default {
     },
     hiddenSidebarStyle() {
       return !this.$store.state.ui.sidebar ? { 'margin-left': 0 } : null;
+    },
+    showLevelBar() {
+      return this.$store.state.ui.levelbar;
     },
   },
   mapGetters('ui', ['fullpage']),
