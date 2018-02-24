@@ -13,6 +13,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 
+config/config.js
 config/config.json
 .firebaserc
 firebase.json
