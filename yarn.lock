@@ -6437,6 +6437,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-bulma-breadcrumb@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-bulma-breadcrumb/-/vue-bulma-breadcrumb-1.0.1.tgz#5d9e5756f538f94feb8e265c3c947a39d87536f7"
+
 vue-bulma-expanding@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/vue-bulma-expanding/-/vue-bulma-expanding-0.0.1.tgz#fcf71c2e8ef09157175bd5187eb71b3ce75a2229"
