@@ -52,5 +52,6 @@ export default {
 
 .app-main.full-page {
   padding-top: 0px;
+  transition: margin 0ms;
 }
 </style>

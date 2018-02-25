@@ -7,11 +7,6 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Dashboard',
-      component: Dashboard,
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login,
@@ -22,9 +17,25 @@ export default new Router({
       component: Register,
     },
     {
+      path: '/forget',
+      name: 'Forget',
+      component: Login,
+    },
+    {
+      path: '/',
+      name: 'Dashboard',
+      component: Dashboard,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
       path: '/posts',
       name: 'Posts',
       component: Posts,
+      meta: {
+        requiresAuth: true,
+      },
     },
   ],
   mode: 'history', // removes '#' from url

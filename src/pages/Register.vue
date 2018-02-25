@@ -82,6 +82,7 @@ export default {
 
   mounted() {
     this.$store.commit('ui/SHOW_FULLPAGE', true);
+    this.$store.commit('ui/SHOW_LEVELBAR', false);
   },
 
   methods: {

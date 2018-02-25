@@ -12,10 +12,11 @@ import App from './App';
 import router from './router';
 import store from './store';
 
-import config from '../config/config.json';
+// import config from '../config/config.json';
 
 Vue.config.productionTip = false;
 
+/*
 firebase.initializeApp(config.firebase);
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
@@ -23,9 +24,17 @@ firebase.auth().onAuthStateChanged((user) => {
     router.push('/');
   } else {
     store.commit('user/SET_USER', { displayName: '', email: '' });
-    router.push('/login');
   }
 });
+
+router.beforeEach((to, from, next) => {
+  if (!firebase.auth().currentUser && to.matched.some(record => record.meta.requiresAuth)) {
+    next('Login');
+    return;
+  }
+  next();
+});
+*/
 
 Vue.prototype._ = lodash;
 // Vue.prototype.$http = Axios;

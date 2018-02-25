@@ -30,6 +30,7 @@ export default [
   {
     name: 'Media',
     path: '',
+    url: 'http://google.com',
     meta: { icon: 'fa-image', expanded: false },
   },
   {
