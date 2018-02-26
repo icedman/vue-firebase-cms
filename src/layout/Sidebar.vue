@@ -1,40 +1,41 @@
 <template name='Sidebar'>
-  <div>
-    <aside class="menu app-sidebar" :class="{'animate-is-hidden': !this.$store.state.ui.sidebar }">
-      <ul class="menu-list"
-        v-for="(menuItem, index) in this.$store.state.ui.menu"
-        :key="'item' + index">
+<div>
+<aside class="menu app-sidebar bg-secondary"
+  :class="{'animate-is-hidden': !this.$store.state.ui.sidebar }">
+  <ul class="menu-list"
+    v-for="(menuItem, index) in this.$store.state.ui.menu"
+    :key="'item' + index">
 
-        <li>
-          <a :aria-expanded="isExpanded(menuItem)"
-            :class="linkActiveStyle(menuItem)" @click="clickItem(index, menuItem)">
+    <li>
+      <a :aria-expanded="isExpanded(menuItem)"
+        :class="linkActiveStyle(menuItem)" @click="clickItem(index, menuItem)">
+        <span class="icon is-small">
+          <i :class="['fa', menuItem.meta.icon]"></i></span> {{menuItem.name}}
+        <span class="icon is-small is-angle" v-if="menuItem.children && menuItem.children.length">
+          <i class="fa fa-angle-down"></i>
+        </span>
+      </a>
+    </li>
+
+    <expanding v-if="menuItem.children && menuItem.children.length" class="subitems">
+      <ul v-show="isExpanded(menuItem)">
+        <li v-for="(subItem, subItemIndex) in menuItem.children"
+          :key="subItemIndex">
+          <a @click="clickItem(subItemIndex, subItem)">
             <span class="icon is-small">
-              <i :class="['fa', menuItem.meta.icon]"></i></span> {{menuItem.name}}
-            <span class="icon is-small is-angle" v-if="menuItem.children && menuItem.children.length">
+              <i :class="['fa', subItem.meta.icon]"></i></span> {{subItem.name}}
+            <span class="icon is-small is-angle" v-if="subItem.children && subItem.children.length">
               <i class="fa fa-angle-down"></i>
             </span>
           </a>
         </li>
-
-        <expanding v-if="menuItem.children && menuItem.children.length" class="subitems">
-          <ul v-show="isExpanded(menuItem)">
-            <li v-for="(subItem, subItemIndex) in menuItem.children"
-              :key="subItemIndex">
-              <a @click="clickItem(subItemIndex, subItem)">
-                <span class="icon is-small">
-                  <i :class="['fa', subItem.meta.icon]"></i></span> {{subItem.name}}
-                <span class="icon is-small is-angle" v-if="subItem.children && subItem.children.length">
-                  <i class="fa fa-angle-down"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </expanding>
-
       </ul>
-    </aside>
-    <div class="sidebar-bg" :class="{ 'is-hidden': !this.show }" @click="toggleSidebar()"></div>
-  </div>
+    </expanding>
+
+  </ul>
+</aside>
+<div class="sidebar-bg" :class="{ 'is-hidden': !this.show }" @click="toggleSidebar()"></div>
+</div>
 </template>
 
 <script>
@@ -56,7 +57,7 @@ export default {
 
   methods: Object.assign({
     linkActiveStyle(item) {
-      if (item.path === this.$route.path) {
+      if (item.path !== '' && this.$route.path !== '/' && this.$route.path.indexOf(item.path) === 0) {
         return 'router-link-exact-active';
       }
       return null;
@@ -109,8 +110,7 @@ export default {
   max-height: 100vh;
   height: calc(100% - 50px);
   z-index: 2;
-  background: #FFF;
-  box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
+  disable-box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
   overflow-y: auto;
   overflow-x: hidden;
   transition: left 200ms;
@@ -140,8 +140,9 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-sidebar {
+  max-height:100%;
   .menu-label {
     padding-left: 5px;
   }
@@ -168,5 +169,4 @@ export default {
     }
   }
 }
-
 </style>

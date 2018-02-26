@@ -3,6 +3,7 @@ export default {
   namespaced: true,
 
   state: {
+    loading: true,
     sidebar: true,
     navbar: true,
     levelbar: true,
@@ -10,6 +11,9 @@ export default {
   },
 
   actions: {
+    hideLoading({ commit }) {
+      commit('ui/SHOW_LOADING', false);
+    },
     toggleSidebar({ commit }) {
       commit('SHOW_SIDEBAR', !this.state.ui.sidebar);
     },
@@ -28,6 +32,9 @@ export default {
   },
 
   mutations: {
+    SHOW_LOADING(state, show) {
+      state.loading = show;
+    },
     SHOW_SIDEBAR(state, show) {
       state.sidebar = show;
     },

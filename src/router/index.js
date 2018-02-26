@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { Dashboard, Posts, Register, Login } from '@/pages';
+import { Dashboard, Posts, Post, Register, Login } from '@/pages';
 
 Vue.use(Router);
 
@@ -33,6 +33,14 @@ export default new Router({
       path: '/posts',
       name: 'Posts',
       component: Posts,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/posts/:id',
+      name: 'Post',
+      component: Post,
       meta: {
         requiresAuth: true,
       },
