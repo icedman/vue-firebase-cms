@@ -16,7 +16,7 @@ import store from './store';
 
 import config from '../config/config.json';
 
-// config.firebase = null; // disabled firebase
+config.firebase = null; // disabled firebase
 Vue.config.productionTip = false;
 
 Vue.prototype._ = lodash;
