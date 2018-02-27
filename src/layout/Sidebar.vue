@@ -1,37 +1,41 @@
-<template>
-  <div>
-    <aside class="menu app-sidebar" :class="{'animate-is-hidden': !this.$store.state.ui.sidebar }">
-      <ul class="menu-list"
-        v-for="(menuItem, index) in this.$store.state.ui.menu"
-        :key="'item' + index">
+<template name='Sidebar'>
+<div>
+<aside class="menu app-sidebar bg-secondary"
+  :class="{'animate-is-hidden': !this.$store.state.ui.sidebar }">
+  <ul class="menu-list"
+    v-for="(menuItem, index) in this.$store.state.ui.menu"
+    :key="'item' + index">
 
-        <menu-item-link
-          :item="menuItem" :index="index"
-          :expanded="isExpanded(menuItem)">
-        </menu-item-link>
+    <li>
+      <a :aria-expanded="isExpanded(menuItem)"
+        :class="linkActiveStyle(menuItem)" @click="clickItem(index, menuItem)">
+        <span class="icon is-small">
+          <i :class="['fa', menuItem.meta.icon]"></i></span> {{menuItem.name}}
+        <span class="icon is-small is-angle" v-if="menuItem.children && menuItem.children.length">
+          <i class="fa fa-angle-down"></i>
+        </span>
+      </a>
+    </li>
 
-        <menu-item-router-link
-          :item="menuItem"
-          :index="index"
-          :expanded="isExpanded(menuItem)">
-        </menu-item-router-link>
-
-        <expanding v-if="menuItem.children && menuItem.children.length" class="subitems">
-          <ul v-show="isExpanded(menuItem)">
-            <li v-for="(subItem, subItemIndex) in menuItem.children"
-              :key="subItemIndex">
-              <menu-item-link
-                :item="subItem" :index="subItemIndex"></menu-item-link>
-              <menu-item-router-link
-                :item="subItem" :index="subItemIndex"></menu-item-router-link>
-            </li>
-          </ul>
-        </expanding>
-
+    <expanding v-if="menuItem.children && menuItem.children.length" class="subitems">
+      <ul v-show="isExpanded(menuItem)">
+        <li v-for="(subItem, subItemIndex) in menuItem.children"
+          :key="subItemIndex">
+          <a @click="clickItem(subItemIndex, subItem)">
+            <span class="icon is-small">
+              <i :class="['fa', subItem.meta.icon]"></i></span> {{subItem.name}}
+            <span class="icon is-small is-angle" v-if="subItem.children && subItem.children.length">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </a>
+        </li>
       </ul>
-    </aside>
-    <div class="sidebar-bg " :class="{ 'is-hidden': !this.show }" @click="toggleSidebar()"></div>
-  </div>
+    </expanding>
+
+  </ul>
+</aside>
+<div class="sidebar-bg" :class="{ 'is-hidden': !this.show }" @click="toggleSidebar()"></div>
+</div>
 </template>
 
 <script>
@@ -39,35 +43,10 @@ import Expanding from 'vue-bulma-expanding';
 import { mapActions } from 'vuex';
 
 export default {
+  name: 'Sidebar',
+
   components: {
     Expanding,
-
-    menuItemLink: {
-      props: ['item', 'index', 'expanded'],
-      template: `
-      <li v-if="item.path==''">
-        <a :href="item.url" :aria-expanded="expanded" @click="$parent.toggle(index, item)">
-          <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span> {{item.name}}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
-            <i class="fa fa-angle-down"></i>
-          </span>
-        </a>
-      </li>
-      `,
-    },
-    menuItemRouterLink: {
-      props: ['item', 'index', 'expanded'],
-      template: `
-      <li v-if="item.path!=''">
-        <router-link :exact="true" :to="item.path" :aria-expanded="expanded" @click="$parent.toggle(index, item)">
-          <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span> {{item.name}}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
-            <i class="fa fa-angle-down"></i>
-          </span>
-        </router-link>
-      </li>
-      `,
-    },
   },
 
   computed: {
@@ -77,6 +56,13 @@ export default {
   },
 
   methods: Object.assign({
+    linkActiveStyle(item) {
+      if (item.path !== '' && this.$route.path !== '/' && this.$route.path.indexOf(item.path) === 0) {
+        return 'router-link-exact-active';
+      }
+      return null;
+    },
+
     expandMenu(item) {
       // item.meta.expanded = true;
       const menu = [...this.$store.state.ui.menu];
@@ -95,48 +81,14 @@ export default {
       });
     },
 
-    /*
-    shouldExpandMatchItem(route) {
-      const matched = route.matched;
-      const lastMatched = matched[matched.length - 1];
-      let parent = lastMatched.parent || lastMatched;
-      const isParent = parent === lastMatched;
-
-      if (isParent) {
-        const p = this.findParentFromMenu(route);
-        if (p) {
-          parent = p;
-        }
+    clickItem(idx, item) {
+      if (item.path && item.path !== '') {
+        this.$router.push(item.path);
+      } else if (item.url && item.url !== '') {
+        window.location = item.url;
       }
-
-      if ('expanded' in parent.meta && !isParent) {
-        this.expandMenu({
-          item: parent,
-          expanded: true,
-        });
-      }
+      this.toggle(idx, item);
     },
-
-    generatePath(item, subItem) {
-      return `${item.component ? item.path + '/' : ''}${subItem.path}`;
-    },
-
-    findParentFromMenu(route) {
-      const menu = this.$store.state.ui.menu;
-      for (let i = 0, l = menu.length; i < l; i += 1) {
-        const item = menu[i];
-        const k = item.children && item.children.length;
-        if (k) {
-          for (let j = 0; j < k; j += 1) {
-            if (item.children[j].name === route.name) {
-              return item;
-            }
-          }
-        }
-      }
-      return null;
-    },
-    */
   },
   mapActions('ui', ['toggleSidebar']),
   ),
@@ -158,8 +110,7 @@ export default {
   max-height: 100vh;
   height: calc(100% - 50px);
   z-index: 2;
-  background: #FFF;
-  box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
+  disable-box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1), 0 0 0 1px rgba(17, 17, 17, 0.1);
   overflow-y: auto;
   overflow-x: hidden;
   transition: left 200ms;
@@ -189,8 +140,9 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-sidebar {
+  max-height:100%;
   .menu-label {
     padding-left: 5px;
   }
@@ -213,8 +165,8 @@ export default {
       position: absolute;
       right: 10px;
       transition: transform .377s ease;
+      transform-origin: 25% 50%;
     }
   }
 }
-
 </style>

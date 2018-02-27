@@ -3,8 +3,10 @@ export default {
   namespaced: true,
 
   state: {
+    uid: '',
     displayName: '',
     email: '',
+    photoURL: '',
   },
 
   actions: {},
@@ -13,8 +15,10 @@ export default {
 
   mutations: {
     SET_USER(state, user) {
-      state.displayName = user.displayName;
+      state.uid = user.uid;
       state.email = user.email;
+      state.displayName = user.displayName;
+      state.photoURL = user.photoURL;
     },
   },
 };

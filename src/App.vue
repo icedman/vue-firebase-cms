@@ -18,10 +18,6 @@ export default {
 
 
 <style lang="scss">
-html {width: 100%; height: 100%}
-body {width: 100%; height: 100%}
-#app {width: 100%; height: 100%}
-
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
@@ -30,6 +26,8 @@ $primary: #8c67ef;
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
+
+$black: #505050;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
@@ -69,12 +67,25 @@ $link-focus-border: $primary;
   }
 }
 
-
 .menu-list a.router-link-exact-active,
 .menu-list a.router-link-exact-active:hover {
   color: $primary-invert;
-  background-color: $primary;
+  background-color: #505050;
   border-radius: 0px;
 }
 
+.page {
+  margin: 20px;
+}
+
+body {
+  overflow: auto;
+}
+
+.bg-primary {
+  background-color: rgb(0,159,110);
+}
+.bg-secondary {
+  background-color: $light;
+}
 </style>

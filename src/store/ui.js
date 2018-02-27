@@ -3,6 +3,7 @@ export default {
   namespaced: true,
 
   state: {
+    loading: true,
     sidebar: true,
     navbar: true,
     levelbar: true,
@@ -10,11 +11,14 @@ export default {
   },
 
   actions: {
+    hideLoading({ commit }) {
+      commit('ui/SHOW_LOADING', false);
+    },
     toggleSidebar({ commit }) {
-      commit('SHOW_SIDEBAR', !this.state.sidebar);
+      commit('SHOW_SIDEBAR', !this.state.ui.sidebar);
     },
     toggleFullPage({ commit }) {
-      commit('SHOW_FULLPAGE', (this.state.sidebar || this.state.navbar));
+      commit('SHOW_FULLPAGE', (this.state.ui.sidebar || this.state.ui.navbar));
     },
     setFullPage({ commit }) {
       commit('SHOW_FULLPAGE', true);
@@ -28,6 +32,9 @@ export default {
   },
 
   mutations: {
+    SHOW_LOADING(state, show) {
+      state.loading = show;
+    },
     SHOW_SIDEBAR(state, show) {
       state.sidebar = show;
     },

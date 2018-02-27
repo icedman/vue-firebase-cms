@@ -1,7 +1,7 @@
 <template>
-  <div class="page">
-    {{msg}}
-  </div>
+<div class="page">
+  {{msg}}
+</div>
 </template>
 
 <script>

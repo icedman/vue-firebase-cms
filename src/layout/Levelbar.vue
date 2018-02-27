@@ -60,8 +60,8 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-padding: 20px;
-padding-top: 10px;
-padding-bottom: 10px;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
