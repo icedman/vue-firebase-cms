@@ -26,7 +26,6 @@
       </b-table-column>
 
       <b-table-column field="date" label="Date" centered>
-        {{ convertDate(props.row.date) }}
       </b-table-column>
 
       <b-table-column label="" style="text-align:right">
@@ -63,6 +62,8 @@ export default {
     return {
       posts: [],
       recentPostsRef: null,
+      page: 0,
+      limit: 40,
     };
   },
 
@@ -73,11 +74,38 @@ export default {
 
   methods: Object.assign(
     {
-      convertDate(date) {
-        return new Date(date).toLocaleDateString();
-      },
-      setGenderIcon(gender) {
-        return gender === 'Male' ? 'mars' : 'venus';
+      fetch(page) {
+        this.page = page;
+
+        // const start = this.limit * this.page;
+        // const end = start + this.limit;
+        const firebase = this.$firebase;
+        this.recentPostsRef = firebase.database().ref('posts')
+          .limitToLast(this.limit);
+          // .startAt(start);
+        this.recentPostsRef.on('child_added', (data) => {
+          const obj = {
+            id: data.key,
+            title: data.val().title,
+            author: data.val().author || 'Anonymous',
+          };
+          this.posts.push(obj);
+        });
+
+        this.recentPostsRef.on('child_changed', (data) => {
+          const obj = this.posts.filter(post => (post.id === data.key));
+          if (obj.length) {
+            obj[0].title = data.val().title;
+          }
+        });
+
+        this.recentPostsRef.on('child_removed', (data) => {
+          const objs = this.posts.map(post => post.id);
+          const idx = objs.indexOf(data.key);
+          if (idx !== -1) {
+            this.$delete(this.posts, idx);
+          }
+        });
       },
     },
     mapActions('ui', ['toggleSidebar', 'toggleFullPage']),
@@ -86,31 +114,7 @@ export default {
   mounted() {
     this.$store.commit('ui/SET_MENU', Menu);
 
-    const firebase = this.$firebase;
-    this.recentPostsRef = firebase.database().ref('posts').limitToLast(100);
-    this.recentPostsRef.on('child_added', (data) => {
-      const obj = {
-        id: data.key,
-        title: data.val().title,
-        author: data.val().author || 'Anonymous',
-      };
-      this.posts.push(obj);
-    });
-
-    this.recentPostsRef.on('child_changed', (data) => {
-      const obj = this.posts.filter(post => (post.id === data.key));
-      if (obj.length) {
-        obj[0].title = data.val().title;
-      }
-    });
-
-    this.recentPostsRef.on('child_removed', (data) => {
-      const objs = this.posts.map(post => post.id);
-      const idx = objs.indexOf(data.key);
-      if (idx !== -1) {
-        this.$delete(this.posts, idx);
-      }
-    });
+    this.fetch(this.page);
   },
 
   destroyed() {

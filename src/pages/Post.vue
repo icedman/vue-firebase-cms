@@ -43,6 +43,9 @@
 
       <div class="control">
         <button class="button is-danger" @click="save()"><i class="fa fa-save"></i> Save</button>
+        <button class="button is-danger" @click="save()" v-if="id">
+          <i class="fa fa-trash"></i> Delete
+        </button>
       </div>
     </div>
   </div>
