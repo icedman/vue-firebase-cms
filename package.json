@@ -16,7 +16,7 @@
     "bulma": "^0.6.2",
     "firebase": "^4.10.1",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.13",
     "vue": "^2.5.2",
     "vue-bulma-breadcrumb": "^1.0.1",
     "vue-bulma-expanding": "^0.0.1",
