@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "buefy": "^0.6.3",
+    "buefy": "^0.7.2",
     "bulma": "^0.6.2",
     "firebase": "^4.10.1",
     "font-awesome": "^4.7.0",
